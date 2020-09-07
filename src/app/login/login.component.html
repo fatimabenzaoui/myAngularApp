@@ -1,0 +1,115 @@
+    <div class="row mt-5">
+        <div class="col-md-4 mx-auto mt-5">
+            <h2 class="text-center mt-3">Se connecter</h2>
+            <form #loginForm="ngForm" class="loginForm p-5">
+                <div class="text-center">Email : fatima.benzaoui@yahoo.fr<br>Password : 1234</div>
+                <label for="email">Email</label>
+                <input autocomplete="username" required ngModel #inputEmail="ngModel" name="email" id="email"
+                  type="text" class="form-control">
+                <p class="text-danger" *ngIf="inputEmail.invalid && inputEmail.touched">Votre email est invalide</p>
+
+                <label for="password">Password</label>
+                <input autocomplete="current-password" required ngModel #inputPwd="ngModel" name="password"
+                  minlength="4" id="password" type="password"
+                  class="form-control">
+                <p class="text-danger" *ngIf="inputPwd.invalid && inputPwd.touched">Votre password est invalide (min: 4 caractères)</p>
+
+                <button [disabled]="loginForm.invalid" (click)="login(loginForm.value)" class="btn btn-dark btn-sm mt-2 w-100">Se connecter</button>
+            </form>
+        </div>
+    </div>
+
+<!-- LOGIN.COMPONENT -->
+
+<div class="row mt-5">
+  <div class="col-md-4">
+    <h2 class="text-center">authentification.service.ts</h2>
+<pre>
+import &#123; HttpClient &#125; from '@angular/common/http';
+import &#123; Injectable &#125; from '@angular/core';
+
+const link = 'http://localhost:3000/api/Users/login';
+
+@Injectable(&#123;
+  providedIn: 'root',
+&#125;)
+export class AuthentificationService &#123;
+  constructor(
+    private http: HttpClient
+  ) &#123;&#125;
+  login(credentials) &#123;
+    return this.http.post(link, credentials);
+  &#125;
+  logout() &#123;
+    localStorage.removeItem('token');
+  &#125;
+  isLogged() &#123;
+    return !! localStorage.getItem('token');
+  &#125;
+&#125;
+</pre>
+  </div>
+  <div class="col-md-4">
+    <h2 class="text-center">login.component.ts</h2>
+<pre class="ascenseur">
+import &#123; Router &#125; from '@angular/router';
+import &#123; AuthentificationService &#125; from 
+'./../authentification.service';
+import &#123; Component, OnInit &#125; from '@angular/core';
+
+@Component(&#123;
+  selector: 'app-login',
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.css'],
+&#125;)
+export class LoginComponent implements OnInit &#123;
+  <small>message = '';
+  constructor(
+    private authentificationService: AuthentificationService,
+    private router: Router</small>
+  )&#123;&#125;
+  ngOnInit(): void &#123;&#125;
+  login(credentials) &#123;
+      <small>this.authentificationService.login(credentials).subscribe(
+        (response: any) => &#123;
+          const token = response.id;
+          const link = ['contactapp'];
+          localStorage.setItem('token', token);
+          this.router.navigate(link);
+        &#125;,
+        (error) => &#123;
+          console.log('Erreur' + error);
+        &#125;
+      );</small>
+  &#125;
+&#125;
+</pre>
+  </div>
+
+  <div class="col-md-4">
+    <h2 class="text-center">login.component.html</h2>
+<pre class="ascenseur">
+&lt;form #loginForm="ngForm"&gt;
+&lt;label for="email"&gt;Email&lt;/label&gt;
+&lt;input
+  autocomplete="username" required ngModel 
+  #inputEmail="ngModel" name="email"
+  id="email" type="text"&gt;
+&lt;p class="text-danger" 
+  *ngIf="inputEmail.invalid && inputEmail.touched"&gt;
+Votre email est invalide&lt;/p&gt;
+
+&lt;label for="password">Password&lt;/label&gt;
+&lt;input autocomplete="current-password" required ngModel 
+  #inputPwd="ngModel" name="password" minlength="4"
+  id="password" type="password"&gt;
+&lt;p class="text-danger" 
+  *ngIf="inputPwd.invalid && inputPwd.touched"&gt;
+  Votre password est invalide (min: 4 caractères)
+&lt;/p&gt;
+&lt;button [disabled]="loginForm.invalid" 
+(click)="login(loginForm.value)"&gt;Se connecter&lt;/button&gt;
+&lt;/form&gt;
+</pre>
+</div>
+</div>

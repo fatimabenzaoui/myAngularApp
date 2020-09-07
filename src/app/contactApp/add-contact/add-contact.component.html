@@ -1,0 +1,133 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 mx-auto">
+            <h2 class="mt-5 p-3 text-center">Add a contact</h2>
+            <div *ngIf="errorMessage" class="alert alert-danger">{{ errorMessage }}</div>
+            <form #addForm="ngForm" class="addForm p-5 text-dark">
+              <label for="firstname">Firstname</label>
+              <input ngModel name="firstname" required #firstnameInput="ngModel" id="firstname" type="text" class="form-control shadow-none">
+              <p *ngIf="firstnameInput.invalid && firstnameInput.touched" class="text-danger">Veuillez renseigner votre
+                prénom</p>
+
+              <label for="name">Name</label>
+              <input ngModel name="name" required #nameInput="ngModel" id="name" type="text" class="form-control shadow-none">
+              <p *ngIf="nameInput.invalid && nameInput.touched" class="text-danger">Veuillez renseigner votre nom</p>
+
+              <label for="pseudo">Pseudo</label>
+              <input ngModel name="pseudo" required #pseudoInput="ngModel" id="pseudo" type="text" class="form-control shadow-none">
+              <p *ngIf="pseudoInput.invalid && pseudoInput.touched" class="text-danger">Veuillez renseigner votre pseudo
+              </p>
+
+              <label for="email">Email</label>
+              <input ngModel name="email" required #emailInput="ngModel"
+                pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" id="email" type="text" class="form-control shadow-none">
+              <p *ngIf="emailInput.invalid && emailInput.touched" class="text-danger">Votre email est invalide</p>
+
+              <label for="phone">Phone</label>
+              <input ngModel name="tel" required #phoneInput="ngModel" pattern="^(\d\d){4}(\d\d)$" id="phone" type="text" class="form-control shadow-none">
+              <p *ngIf="phoneInput.invalid && phoneInput.touched" class="text-danger">Votre téléphone est invalide</p>
+
+              <label for="avatar">Avatar</label>
+              <input ngModel name="avatar" id="avatar" type="text" class="form-control shadow-none">
+
+              <button (click)="addContact(addForm)" [disabled]="addForm.invalid"
+                class="btn btn-dark btn-sm mt-3 w-100">ADD</button>
+            </form>
+            <p class="text-right"><a (click)="goToContactApp()" class="internlink">&lt;- Go to ContactApp</a></p>
+        </div>
+    </div>
+</div>
+
+<!-- ADD-CONTACT.COMPONENT -->
+
+<div class="row mt-5">
+  <div class="col-md-6">
+    <h2 class="text-center">add-contact.component.ts</h2>
+<pre class="ascenseur">
+import &#123; Router &#125; from '@angular/router';
+import &#123; ContactService &#125; from './../contact.service';
+import &#123; Component, OnInit &#125; from '@angular/core';
+import &#123; NgForm &#125; from '@angular/forms';
+
+@Component(&#123;
+  selector: 'app-add-contact',
+  templateUrl: './add-contact.component.html',
+  styleUrls: ['./add-contact.component.css'],
+&#125;)
+export class AddContactComponent implements OnInit &#123;
+  errorMessage = '';
+  constructor(
+    private contactService: ContactService,
+    private router: Router
+  ) &#123;&#125;
+  ngOnInit(): void &#123;&#125;
+  addContact(addForm: NgForm) &#123;
+    this.contactService.addContact(addForm.value).subscribe(
+      (response) => &#123;
+        const link = ['contactapp'];
+        this.router.navigate(link);
+      &#125;,
+      (error) => &#123;
+        this.errorMessage = `Problème de connexion au serveur`;
+        console.log(error);
+      &#125;
+    );
+  &#125;
+  goToContactApp() &#123;
+    const link = ['contactapp'];
+    this.router.navigate(link);
+  &#125;
+&#125;
+
+<span class="text-success">// OLD VERSION (FRONT) 
+// addContact(addForm: NgForm) &#123;
+//   console.log(addForm);
+//   const link = ['contactapp'];
+//   this.contactService.addContact(addForm.value);
+//   this.router.navigate(link);
+// &#125;</span>
+</pre>
+  </div>
+
+  <div class="col-md-6">
+    <h2 class="text-center">add-contact.component.html</h2>
+<pre class="ascenseur">
+&lt;div *ngIf="errorMessage" class="alert alert-danger"&gt;&#123; &#123; errorMessage &#125; &#125;&lt;/div&gt;
+&lt;form #addForm="ngForm" class="addForm p-5 text-dark"&gt;
+  &lt;label for="firstname"&gt;Firstname&lt;/label&gt;
+  &lt;input ngModel name="firstname" required #firstnameInput="ngModel"
+    id="firstname" type="text"&gt;
+  &lt;p *ngIf="firstnameInput.invalid && firstnameInput.touched" class="text-danger"&gt;
+    Veuillez renseigner votre prénom&lt;/p&gt;
+
+  &lt;label for="name"&gt;Name&lt;/label&gt;
+  &lt;input ngModel name="name" required #nameInput="ngModel" id="name" type="text"&gt;
+  &lt;p *ngIf="nameInput.invalid && nameInput.touched" class="text-danger"&gt;
+    Veuillez renseigner votre nom&lt;/p&gt;
+
+  &lt;label for="pseudo"&gt;Pseudo&lt;/label&gt;
+  &lt;input ngModel name="pseudo" required #pseudoInput="ngModel" id="pseudo" type="text"&gt;
+  &lt;p *ngIf="pseudoInput.invalid && pseudoInput.touched" class="text-danger"&gt;
+    Veuillez renseigner votre pseudo
+  &lt;/p&gt;
+
+  &lt;label for="email"&gt;Email&lt;/label&gt;
+  &lt;input ngModel name="email" required #emailInput="ngModel" 
+    pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z] &#123;2,4&#125;$" id="email" type="text"&gt;
+  &lt;p *ngIf="emailInput.invalid && emailInput.touched" class="text-danger"&gt;
+    Votre email est invalide&lt;/p&gt;
+
+  &lt;label for="phone"&gt;Phone&lt;/label&gt;
+  &lt;input ngModel name="tel" required #phoneInput="ngModel"
+    pattern="^(\d\d)&#123;4&#125;(\d\d)$" id="phone" type="text"&gt;
+  &lt;p *ngIf="phoneInput.invalid && phoneInput.touched" class="text-danger"&gt;
+    Votre téléphone est invalide&lt;/p&gt;
+
+  &lt;label for="avatar"&gt;Avatar&lt;/label&gt;
+  &lt;input ngModel name="avatar" id="avatar" type="text"&gt;
+
+  &lt;button (click)="addContact(addForm)" [disabled]="addForm.invalid"&gt;ADD&lt;/button&gt;
+&lt;/form&gt;
+&lt;p&gt;&lt;a (click)="goToContactApp()"&gt;&lt;- Go to ContactApp&lt;/a&gt;&lt;/p&gt;
+</pre>
+  </div>

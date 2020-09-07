@@ -1,0 +1,109 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-8 mx-auto">
+      <h2 class="mt-5 p-3 text-center">Update a contact</h2>
+      <form #updateForm="ngForm" *ngIf="personne" class="updateForm p-5 text-dark">
+        <label for="firstname">Firstname</label>
+        <input [(ngModel)]="personne.firstname" name="firstname" required id="firstname" type="text" class="form-control shadow-none">
+
+        <label for="name">Name</label>
+        <input [(ngModel)]="personne.name" name="name" required id="name" type="text" class="form-control shadow-none">
+
+        <label for="pseudo">Pseudo</label>
+        <input [(ngModel)]="personne.pseudo" name="pseudo" required id="pseudo" type="text" class="form-control shadow-none">
+
+        <label for="email">Email</label>
+        <input [(ngModel)]="personne.email" name="email" required id="email" type="text" class="form-control shadow-none">
+
+        <label for="phone">Phone</label>
+        <input [(ngModel)]="personne.tel" name="tel" required id="phone" type="text" class="form-control shadow-none">
+
+        <label for="avatar">Avatar</label>
+        <input [(ngModel)]="personne.avatar" name="avatar" id="avatar" type="text" class="form-control shadow-none">
+
+        <button (click)="updateContact()" class="btn btn-dark btn-sm mt-3 w-100">UPDATE</button>
+      </form>
+      <p class="text-right"><a (click)="goToContactApp()" class="internlink">&lt;- Go to ContactApp</a></p>
+    </div>
+  </div>
+</div>
+
+<!-- UPDATE-CONTACT.COMPONENT -->
+
+<div class="row mt-5">
+  <div class="col-md-6">
+    <h2 class="text-center">update-contact.component.ts</h2>
+<pre class="ascenseur">
+import &#123; ContactService &#125; from './../contact.service';
+import &#123; ActivatedRoute, Router &#125; from '@angular/router';
+import &#123; Personne &#125; from './../../Model/Personne';
+import &#123; Component, OnInit &#125; from '@angular/core';
+
+@Component(&#123;
+  selector: 'app-update-contact',
+  templateUrl: './update-contact.component.html',
+  styleUrls: ['./update-contact.component.css']
+&#125;)
+export class UpdateContactComponent implements OnInit &#123;
+  personne: Personne;
+  constructor(
+    private activatedRoute: ActivatedRoute,
+    private contactService: ContactService,
+    private router: Router
+  ) &#123;&#125;
+  ngOnInit(): void &#123;
+    this.activatedRoute.params.subscribe((params) => &#123;
+      this.contactService.getPersonneById(params.id).subscribe((personne) => &#123;
+        this.personne = personne;
+      &#125;);
+    &#125;);
+  &#125;
+  updateContact() &#123;
+    this.contactService.updateContact(this.personne).subscribe(
+      (response) => &#123;
+        const link = ['contactapp'];
+        this.router.navigate(link);
+      &#125;
+    );
+  &#125;
+  goToContactApp() &#123;
+    const link = ['contactapp'];
+    this.router.navigate(link);
+  &#125;
+&#125;
+</pre>
+  </div>
+
+  <div class="col-md-6">
+    <h2 class="text-center">update-contact.component.html</h2>
+<pre class="ascenseur">
+&lt;form #updateForm="ngForm" *ngIf="personne"&gt;
+  &lt;label for="firstname"&gt;Firstname&lt;/label&gt;
+  &lt;input [(ngModel)]="personne.firstname" name="firstname" 
+    required id="firstname" type="text"&gt;
+
+  &lt;label for="name"&gt;Name&lt;/label&gt;
+  &lt;input [(ngModel)]="personne.name" name="name"
+    required id="name" type="text"&gt;
+
+  &lt;label for="pseudo"&gt;Pseudo&lt;/label&gt;
+  &lt;input [(ngModel)]="personne.pseudo" name="pseudo"
+    required id="pseudo" type="text"&gt;
+
+  &lt;label for="email"&gt;Email&lt;/label&gt;
+  &lt;input [(ngModel)]="personne.email" name="email"
+    required id="email" type="text"&gt;
+
+  &lt;label for="phone"&gt;Phone&lt;/label&gt;
+  &lt;input [(ngModel)]="personne.tel" name="tel"
+    required id="phone" type="text"&gt;
+
+  &lt;label for="avatar"&gt;Avatar&lt;/label&gt;
+  &lt;input [(ngModel)]="personne.avatar" name="avatar"
+    id="avatar" type="text"&gt;
+
+  &lt;button (click)="updateContact()"&gt;UPDATE&lt;/button&gt;
+&lt;/form&gt;
+&lt;p class="text-right"&gt;&lt;a (click)="goToContactApp()">&lt;- Go to ContactApp&lt;/a&gt;&lt;/p&gt;
+</pre>
+  </div>

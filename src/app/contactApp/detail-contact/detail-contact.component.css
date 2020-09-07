@@ -1,0 +1,11 @@
+h2 {
+  text-align: center;
+}
+
+pre {
+  color: #CCC;
+  width: 100%;
+  margin: 0 auto;
+  background-color: #252526;
+  padding: 10px;
+}

@@ -1,0 +1,28 @@
+h1 {
+    text-align: center;
+}
+
+h2 {
+  color: #CCC;
+  cursor:pointer;
+  border:1px solid silver;
+  padding-left: 10px;
+  width:75%;
+  margin: 0 auto;
+  background-color: #1E1E1E;
+}
+
+pre {
+  color: #CCC;
+  width:75%;
+  margin: 0 auto;
+  background-color: #252526;
+}
+.divdata {
+    width:75%;
+    margin: 0 auto;
+    text-align: left;
+}
+.info {
+  color: orangered;
+}

@@ -1,0 +1,40 @@
+.updateForm {
+    background-color: #555;
+}
+pre {
+  color: #CCC;
+  width: 100%;
+  margin: 0 auto;
+  background-color: #252526;
+  padding: 10px;
+}
+.internlink:hover {
+  cursor: pointer;
+  text-decoration: none;
+}
+/******************************************************************************************************** 
+SCROLLBARS
+********************************************************************************************************/
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #343A40;
+  background: #CCC;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #343A40;
+}
+
+.ascenseur {
+  overflow: auto;
+  height: 475px;
+}
