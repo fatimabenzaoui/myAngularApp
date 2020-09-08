@@ -1,23 +1,19 @@
-    <div class="row mt-5">
-        <div class="col-md-4 mx-auto mt-5">
-            <h2 class="text-center mt-3">Se connecter</h2>
-            <form #loginForm="ngForm" class="loginForm p-5">
-                <div class="text-center">Email : fatima.benzaoui@yahoo.fr<br>Password : 1234</div>
-                <label for="email">Email</label>
-                <input autocomplete="username" required ngModel #inputEmail="ngModel" name="email" id="email"
-                  type="text" class="form-control">
-                <p class="text-danger" *ngIf="inputEmail.invalid && inputEmail.touched">Votre email est invalide</p>
+<div class="row mt-5">
+  <div class="col-md-4 mx-auto mt-5">
+    <h2 class="text-center mt-3">Se connecter</h2>
+    <form #loginForm="ngForm" class="loginForm p-5">
+      <label for="email">Email</label>
+      <input autocomplete="username" required ngModel #inputEmail="ngModel" name="email" id="email" type="text" class="form-control">
+      <p class="text-danger" *ngIf="inputEmail.invalid && inputEmail.touched">Votre email est invalide</p>
 
-                <label for="password">Password</label>
-                <input autocomplete="current-password" required ngModel #inputPwd="ngModel" name="password"
-                  minlength="4" id="password" type="password"
-                  class="form-control">
-                <p class="text-danger" *ngIf="inputPwd.invalid && inputPwd.touched">Votre password est invalide (min: 4 caractères)</p>
+      <label for="password">Password</label>
+      <input autocomplete="current-password" required ngModel #inputPwd="ngModel" name="password" minlength="4" id="password" type="password" class="form-control">
+      <p class="text-danger" *ngIf="inputPwd.invalid && inputPwd.touched">Votre password est invalide (min: 4 caractères)</p>
 
-                <button [disabled]="loginForm.invalid" (click)="login(loginForm.value)" class="btn btn-dark btn-sm mt-2 w-100">Se connecter</button>
-            </form>
-        </div>
-    </div>
+      <button [disabled]="loginForm.invalid" (click)="login(loginForm.value)" class="btn btn-dark btn-sm mt-2 w-100">Se connecter</button>
+    </form>
+  </div>
+</div>
 
 <!-- LOGIN.COMPONENT -->
 
