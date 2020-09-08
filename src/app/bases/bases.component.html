@@ -21,9 +21,22 @@ ng g s my-service
 
 ng serve --o
 
+npm i bootstrap --save
+npm i font-awesome --save
+
+npm install -g loopback-cli
+lb
+lb model
+npm install loopback-connector-mysql --save
+lb acl
+
 ng build --prod (création du dossier dist)
 npm install http-server -g
 http-server dist/myangularapp (port:8080)
+
+npm i angular-cli-ghpages --sav-dev
+ng build --prod --base-href "https://fatimabenzaoui.github.io/myAngularApp/"
+npx angular-cli-ghpages --dir=dist/myangularapp
 </pre>
 
 <!-- DEPENDENCIES -->
