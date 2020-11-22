@@ -1,18 +1,11 @@
-
-<div *ngIf="media" class="container-fluid divider">
+<div *ngIf="media" class="container divider">
     <img *ngIf="media.media_type === 'image'" src="{{ media.url }}" alt="{{ media.title }}" class="w-100">
-    
-    
-    
- 
-
-<div class="row" *ngIf="media">
-    <div class="col-md-12">
-        <h2 class="text-center mt-5">{{ media.title }} </h2>
-        <p class="text-center"> {{ media.date }} </p>
-        <p class="text-justify"> {{ media.explanation }} </p>
+    <div class="row" *ngIf="media">
+        <div class="col-md-12">
+            <h2 class="text-center mt-5">{{ media.title }} </h2>
+            <p class="text-center"> {{ media.date }} </p>
+            <p class="text-justify"> {{ media.explanation }} </p>
+        </div>
     </div>
+    <iframe *ngIf="!media.media_type === 'image'" src="{{ media.url }}" title="space-video" frameBorder="0" allow="encrypted-media" allowFullScreen class="w-100 border"></iframe>
 </div>
-
-<iframe *ngIf="!media.media_type === 'image'" src="{{ media.url }}" title="space-video" frameBorder="0"
-  allow="encrypted-media" allowFullScreen class="w-100 border">

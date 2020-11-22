@@ -8,9 +8,9 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'Les bases d\'Angular';
   bgColor = 'red';
-  show= false;
+  show = false;
 
-  changeStatus() {
+  changeStatus(): void {
     this.show = !this.show;
   }
 }

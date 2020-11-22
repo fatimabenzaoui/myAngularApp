@@ -20,63 +20,63 @@ export class BasesComponent implements OnInit {
   showForm = true;
   showObserv = true;
   showHttpCli = true;
-  showLoopB = true;
   showHttpInterc = true;
   showCanActiv = true;
+  showDeployGhPages = true;
 
   constructor() {}
 
   ngOnInit(): void {}
 
-  showEnvironnement() {
+  showEnvironnement(): void {
     this.showEnv = !this.showEnv;
   }
-  showDependances() {
+  showDependances(): void {
     this.showDep = !this.showDep;
   }
-  showModules() {
+  showModules(): void {
     this.showMod = !this.showMod;
   }
-  showComponents() {
+  showComponents(): void {
     this.showComp = !this.showComp;
   }
-  showDataBinding() {
+  showDataBinding(): void {
     this.showDataBind = !this.showDataBind;
   }
-  showDirectives() {
+  showDirectives(): void {
     this.showDir = !this.showDir;
   }
-  showPipes() {
+  showPipes(): void {
     this.showPip = !this.showPip;
   }
-  showServices() {
+  showServices(): void {
     this.showServ = !this.showServ;
   }
-  showRouting() {
+  showRouting(): void {
     this.showRout = !this.showRout;
   }
-  showRouterLink() {
+  showRouterLink(): void {
     this.showRoutL = !this.showRoutL;
   }
-  showRouter() {
+  showRouter(): void {
     this.showRouterlien = !this.showRouterlien;
   }
-  showForms() {
+  showForms(): void {
     this.showForm = !this.showForm;
   }
-  showObservables() {
+  showObservables(): void {
     this.showObserv = !this.showObserv;
   }
-  showHttpClient() {
+  showHttpClient(): void {
     this.showHttpCli = !this.showHttpCli;
   }
-  showLoopBack() {
-    this.showLoopB = !this.showLoopB;
-  }
-  showHttpInterceptor() {
+  showHttpInterceptor(): void {
     this.showHttpInterc = !this.showHttpInterc;
   }
-  showCanActivate() {
+  showCanActivate(): void {
     this.showCanActiv = !this.showCanActiv;
+  }
+  showDeploy(): void {
+    this.showDeployGhPages = !this.showDeployGhPages;
   }
 }

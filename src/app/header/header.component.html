@@ -1,34 +1,17 @@
 <div class="row">
   <div class="col-md-12 divnavbar fixed-top">
-  <nav class="navbar navbar-expand-lg">
-  <img src="assets/images/logofatimabenzaoui.png" width="40px" height="40px" title="Dans impossible, il y a toujours un possible !">
-  <a class="navbar-brand mr-auto" href="#">myAngularApp</a>
-  <button 
-    class="navbar-toggler"
-    type="button"
-    data-toggle="collapse"
-    data-target="#navbarNav"
-    aria-controls="navbarNav"
-    aria-expanded="false"
-    aria-label="Toggle navigation"
-    (click)="show()"
-  >
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div
-    class="collapse navbar-collapse"
-    id="navbarNav"
-    [ngClass]="{show: visibility}"
-  >
-    <ul class="navbar-nav ml-auto">
-      <li class="nav-item"><a class="nav-link" [routerLink]="['']" routerLinkActive="active">Home</a></li>
-      <li class="nav-item"><a class="nav-link" [routerLink]="['/bases']" routerLinkActive="active">Bases</a></li>
-      <li class="nav-item"><a class="nav-link" [routerLink]="['/exemples']" routerLinkActive="active">Exemples</a></li>
-      <li *ngIf="authentificationService.isLogged()" class="nav-item"><a class="nav-link" [routerLink]="['/contactapp']" routerLinkActive="active">ContactApp</a></li>
-      <li *ngIf="! authentificationService.isLogged()" class="nav-item"><a class="nav-link" [routerLink]="['/login']" routerLinkActive="active">Login</a></li>
-      <li *ngIf="authentificationService.isLogged()" class="nav-item"><a class="nav-link" (click)="logout()">Logout</a></li>
-    </ul>
+    <nav class="navbar navbar-expand-lg">
+      <img class="logofatimabenzaoui" src="assets/img/logofatimabenzaoui.png" title="Dans impossible, il y a toujours un possible !">
+      <a class="navbar-brand mr-auto" href="#">myAngularApp</a>
+      <span class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation" (click)="show()">
+        <a class="navbar-toggler-icon"><i class="fa fa-bars mt-2 ml-4"></i></a>
+      </span>
+      <div class="collapse navbar-collapse" id="navbarNav" [ngClass]="{show: visibility}">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item"><a class="nav-link" [routerLink]="['']" routerLinkActive="active">nasaStellarApp</a></li>
+          <li class="nav-item"><a class="nav-link" [routerLink]="['/bases']" routerLinkActive="active">Bases</a></li>
+        </ul>
+      </div>
+    </nav>
   </div>
-</nav>
-</div>
 </div>

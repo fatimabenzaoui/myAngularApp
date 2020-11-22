@@ -1,42 +1,25 @@
-<div class="mt-5 pt-5"></div>
-<h1>Les bases d'Angular</h1>
+<div class="mt-5">
+<h1 class="mt-5 pt-1">Les bases d'Angular</h1>
 
 <!-- ENVIRONNEMENT -->
 
-<h2 (click)="showEnvironnement()" appHighlight>Environnement</h2>
+<h2 (click)="showEnvironnement()" appHighlight>Environment</h2>
 <pre [hidden]="showEnv" class="border p-3">
-Download <a href="https://nodejs.org/en/" target="_blank">Node.js</a>
-Install <a href="https://augury.rangle.io/" target="_blank">Angular Augury</a>
+<a href="https://nodejs.org/en/" target="_blank">Télécharger Node</a>
+Tester : node --version
 
-Install <a href="https://cli.angular.io/" target="_blank">Angular/CLI</a>
+<a href="https://augury.rangle.io/" target="_blank">Installer Angular Augury sur Chrome</a>
 
+Installer des extensions sur VSCode :
+Angular Snippets
+Angular2-inline
+Auto Import
+TSLint
+
+<a href="https://cli.angular.io/" target="_blank">Se documenter sur Angular/CLI</a>
 npm install -g @angular/cli
-
 ng new my-app
-
-ng g c my-component
-ng g d my-directive
-ng g p my-pipe
-ng g s my-service
-
-ng serve --o
-
-npm i bootstrap --save
-npm i font-awesome --save
-
-npm install -g loopback-cli
-lb
-lb model
-npm install loopback-connector-mysql --save
-lb acl
-
-ng build --prod (création du dossier dist)
-npm install http-server -g
-http-server dist/myangularapp (port:8080)
-
-npm i angular-cli-ghpages --sav-dev
-ng build --prod --base-href "https://fatimabenzaoui.github.io/myAngularApp/"
-npx angular-cli-ghpages --dir=dist/myangularapp
+ng serve
 </pre>
 
 <!-- DEPENDENCIES -->
@@ -46,6 +29,7 @@ npx angular-cli-ghpages --dir=dist/myangularapp
 npm i bootstrap --save
 npm i font-awesome --save
 
+Modifier le fichier styles.css :
 @import "~bootstrap/dist/css/bootstrap.css";
 @import "~font-awesome/css/font-awesome.css";
 </pre>
@@ -56,9 +40,10 @@ npm i font-awesome --save
 <pre [hidden]="showMod" class="border p-3">
 import &#123; BrowserModule &#125; from '@angular/platform-browser';
 import &#123; NgModule &#125; from '@angular/core';
-import &#123; FormsModule &#125; from '@angular/forms';
 import &#123; HttpClientModule &#125; from '@angular/common/http';
-import &#123; ROUTING &#125; from './app.routing';
+import &#123; FormsModule &#125; from '@angular/forms';
+import &#123; ReactiveFormsModule &#125; from '@angular/forms';
+import &#123; AppRoutes &#125; from './app.routes';
 import &#123; AppComponent &#125; from './app.component';
 
 @NgModule(&#123;
@@ -67,15 +52,12 @@ declarations: [
 ],
 imports: [
   BrowserModule,
+  HttpClientModule,
   FormsModule,
-  ROUTING,
-  HttpClientModule
+  ReactiveFormsModule,
+  AppRoutes,
 ],
-providers: [
-  LoginInterceptorProvider,
-  LoginGuard,
-  LogoutGuard
-],
+providers: [],
 bootstrap: [AppComponent]
 &#125;)
 
@@ -87,16 +69,7 @@ export class AppModule &#123; &#125;
 <h2 (click)="showComponents()" appHighlight>Components</h2>
 
 <pre [hidden]="showComp" class="border p-3">
-import &#123; Component &#125; from '@angular/core';
-
-@Component(&#123;
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
-&#125;)
-export class AppComponent &#123;
-  title = 'MyAngularApp';
-&#125;
+ng g c my-component
 </pre>
 
 
@@ -111,13 +84,11 @@ export class AppComponent &#123;
 <span class="text-primary">Property Binding</span>
 [style.backgroundColor]="variable"
 [hidden]="variable"
-@Input()
 
 <span class="text-primary">Event Binding</span>
 (click)="methode()"
 (change)= "methode()"
 (keyup)= "methode()"
-@Output()
 
 <span class="text-primary">Two Way Data Binding</span>
 [(ngModel)]="variable"
@@ -129,13 +100,15 @@ export class AppComponent &#123;
 <pre [hidden]="showDir" class="border p-3">
 <span class="text-primary">Directives d'attribut</span>
 [ngStyle]="&#123;'proprietecss': variable&#125;"
-[enfantProperty]="'value'"
 [ngClass]="&#123;'attributclass': variable&#125;"
-&lt;div myDirective&gt;&lt;/div&gt;
 
 <span class="text-primary">Directives structurelles</span>
 *ngIf="variable"
 *ngFor="let clef of array"
+
+<span class="text-primary">Créer une directive</span>
+ng g d my-directive
+&lt;div my-directive&gt;&lt;/div&gt;
 </pre>
 
 <!-- PIPES -->
@@ -146,18 +119,16 @@ export class AppComponent &#123;
 &#123; &#123; objet|titlecase &#125; &#125;
 &#123; &#123; objet|json &#125; &#125;
 &#123; &#123; objet|date:'dd/MM/yyyy H:mm' &#125; &#125;
-&#123; &#123; objet|myPipe &#125; &#125;
+
+ng g p my-pipe
+&#123; &#123; objet|my-pipe &#125; &#125;
 </pre>
 
-<!-- SERVICES ET DI -->
+<!-- SERVICES -->
 
-<h2 (click)="showServices()" appHighlight>Services et DI</h2>
+<h2 (click)="showServices()" appHighlight>Services</h2>
 <pre [hidden]="showServ" class="border p-3">
 ng g s my-service
-
-private myService: MyService
-
-this.myService.methode();
 </pre>
 
 <!-- ROUTES - ROUTERMODULE -->
@@ -165,65 +136,34 @@ this.myService.methode();
 <h2 (click)="showRouting()" appHighlight>Routes et RouterModule</h2>
 <pre [hidden]="showRout" class="border p-3">
 import &#123; Routes, RouterModule &#125; from '@angular/router';
+
 import &#123; HomeComponent &#125; from './home/home.component';
 import &#123; BasesComponent &#125; from './bases/bases.component';
-import &#123; ExemplesComponent &#125; from './exemples/exemples.component';
-import &#123; ContactComponent &#125; from './contactApp/contact/contact.component';
-import &#123; AddContactComponent &#125; from './contactApp/add-contact/add-contact.component';
-import &#123; SelectContactComponent &#125; from './contactApp/select-contact/select-contact.component';
-import &#123; UpdateContactComponent &#125; from './contactApp/update-contact/update-contact.component';
-import &#123; LoginComponent &#125; from './login/login.component';
-import &#123; LogoutGuard &#125; from './guard/logout.guard';
-import &#123; LoginGuard &#125; from './guard/login.guard';
 import &#123; ErrorComponent &#125; from './error/error.component';
 
-const APP_ROUTING: Routes = [
-  &#123; path: 'contactapp', <span class="text-primary">canActivate: [LoginGuard]</span>, <span class="text-primary">children</span>: [
-    &#123; path: '', component: ContactComponent &#125;,
-    &#123; path: 'add', component: AddContactComponent, <span class="text-primary">canActivate: [LoginGuard]</span> &#125;,
-    &#123; path: 'update/:id', component: UpdateContactComponent &#125;,
-    &#123; path: ':id', component: SelectContactComponent &#125;
-  ] },
-  &#123; path: '', component: HomeComponent &#125;,
-  &#123; path: 'home', component: HomeComponent &#125;,
+const routes: Routes = [
+  &#123; path: '', component: HomeComponent, pathMatch: 'full' &#125;,
   &#123; path: 'bases', component: BasesComponent &#125;,
-  &#123; path: 'exemples', component: ExemplesComponent &#125;,
-  &#123; path: 'login', component: LoginComponent, <span class="text-primary">canActivate: [LogoutGuard]</span> &#125;,
   &#123; path: '**', component: ErrorComponent &#125;,
 ];
 
-export const ROUTING = RouterModule.<span class="text-primary">forRoot(APP_ROUTING)</span>;
-
-&lt;router-outlet&gt;&lt;/router-outlet&gt;
+export const AppRoutes = RouterModule.<span class="text-primary">forRoot(routes)</span>;
 </pre>
 
 <!-- ROUTERLINK - ROUTERLINKACTIVE -->
 
 <h2 (click)="showRouterLink()" appHighlight>routerLink - routerLinkActive</h2>
 <pre [hidden]="showRoutL" class="border p-3">
-&lt;nav class="navbar navbar-expand-lg navbar-dark bg-dark"&gt;
-  &lt;img src="../../assets/images/logoqrcode.png"&gt;
+&lt;nav class="navbar navbar-expand-lg"&gt;
+  &lt;img src="../../assets/img/logofatimabenzaoui.png"&gt;
   &lt;a class="navbar-brand mr-auto" href="#">myAngularApp&lt;/a&gt;
-  &lt;button 
-    class="navbar-toggler"
-    type="button"
-    data-toggle="collapse"
-    data-target="#navbarNav"
-    aria-controls="navbarNav"
-    aria-expanded="false"
-    aria-label="Toggle navigation"
-    <span class="text-primary">(click)="show()"</span>
-  &gt;
-    &lt;span class="navbar-toggler-icon"&gt;&lt;/span&gt;
+  &lt;button <span class="text-primary">(click)="show()"</span> class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"&gt;
+    &lt;span class="navbar-toggler-icon"&gt;&lt;i class="fa fa-bars"&gt;&lt;/i&gt;&lt;/span&gt;
   &lt;/button&gt;
   &lt;div class="collapse navbar-collapse" id="navbarNav" <span class="text-primary">[ngClass]="&#123; show: visibility &#125;"</span>&gt;
     &lt;ul class="navbar-nav ml-auto"&gt;
-      &lt;li class="nav-item"&gt;&lt;a class="nav-link" <span class="text-primary">[routerLink]="['']" routerLinkActive="active"</span>&gt;Home &lt;/a&gt;&lt;/li&gt;
+      &lt;li class="nav-item"&gt;&lt;a class="nav-link" <span class="text-primary">[routerLink]="['']" routerLinkActive="active"</span>&gt;Nasa-APOD-App &lt;/a&gt;&lt;/li&gt;
       &lt;li class="nav-item"&gt;&lt;a class="nav-link" <span class="text-primary">[routerLink]="['/bases']" routerLinkActive="active"</span>&gt;Bases&lt;/a&gt;&lt;/li&gt;
-      &lt;li class="nav-item"&gt;&lt;a class="nav-link" <span class="text-primary">[routerLink]="['/exemples']" routerLinkActive="active"</span>&gt;Exemples&lt;/a&gt;&lt;/li&gt;
-      &lt;li <span class="text-primary">*ngIf="authentificationService.isLogged()"</span> class="nav-item"&gt;&lt;a class="nav-link" <span class="text-primary">[routerLink]="['/contactapp']" routerLinkActive="active"</span>&gt;ContactApp&lt;/a&gt;&lt;/li&gt;
-      &lt;li <span class="text-primary">*ngIf="! authentificationService.isLogged()"</span> class="nav-item"&gt;&lt;a class="nav-link" <span class="text-primary">[routerLink]="['/login']" routerLinkActive="active"</span>&gt;Login&lt;/a&gt;&lt;/li&gt;
-      &lt;li <span class="text-primary">*ngIf="authentificationService.isLogged()"</span> class="nav-item"&gt;&lt;a class="nav-link" <span class="text-primary">(click)="logout()"</span>primary&gt;Logout&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/div&gt;
 &lt;/nav&gt;
@@ -234,44 +174,13 @@ export const ROUTING = RouterModule.<span class="text-primary">forRoot(APP_ROUTI
 <h2 (click)="showRouter()" appHighlight>Router - ActivatedRoute</h2>
 <pre [hidden]="showRouterlien" class="border p-3">
 import &#123; Router, ActivatedRoute &#125; from '@angular/router';
-
-constructor(
-  private activatedRoute: ActivatedRoute,
-  private router: Router
-)
-ngOnInit(): void &#123;
-  this.activatedRoute.<span class="text-primary">params.subscribe( (params)=> &#123;</span>
-    console.log(params);
-    this.variable = this.service.methode();
-  <span class="text-primary">&#125;);</span>
-&#125;
-
-goTo() &#123;
-  const link = ['contactapp'];
-  this.router.<span class="text-primary">navigate(</span>link<span class="text-primary">);</span>
-&#125;
 </pre>
 
 <!-- FORMS -->
 
 <h2 (click)="showForms()" appHighlight>Forms</h2>
 <pre [hidden]="showForm" class="border p-3">
-<span class="text-primary">Approche basée Template</span>
-&lt;form #formulaire="ngForm"&gt;&lt;/form&gt;
-&lt;input ngModel name="" required #nameInput="ngModel"&gt;
-&lt;p *ngIf="nameInput.invalid && nameInput.touched"&gt; Message d'erreur&lt;/p&gt;
-&lt;button (click)="methode(formulaire)" [disabled]="formulaire.invalid"&gt;ADD&lt;/button&gt;
-
-<span class="text-primary">Classes css associées à l'état des controls du formulaire</span>
-ng-touched # ng-untouched
-ng-valid # ng-invalid
-ng-dirty # ng-pristine
-disabled # enabled
-
-<span class="text-primary">Exemple css</span>
-input:.ng-invalid.ng-touched &#123;
- border: 1px solid red;
-&#125;
+import &#123; FormGroup, FormBuilder, Validators &#125; from '@angular/forms';
 </pre>
 
 <!-- OBSERVABLES -->
@@ -279,8 +188,6 @@ input:.ng-invalid.ng-touched &#123;
 <h2 (click)="showObservables()" appHighlight>Observables</h2>
 <pre [hidden]="showObserv" class="border p-3">
 import &#123; Observable &#125; from 'rxjs';
-
-3 méthodes pour les observer : next() - error() - complete()
 </pre>
 
 <!-- HTTPCLIENT -->
@@ -288,98 +195,6 @@ import &#123; Observable &#125; from 'rxjs';
 <h2 (click)="showHttpClient()" appHighlight>HttpClient</h2>
 <pre [hidden]="showHttpCli" class="border p-3">
 import &#123; HttpClient &#125; from '@angular/common/http';
-
-constructor(
-  private http: HttpClient
-) &#123;&#125;
-
-ngOnInit(): void &#123;
-    this.http<span class="text-primary">.get('url').subscribe(</span>
-    <span class="text-primary">(response) => &#123;</span> console.log('response ', response); <span class="text-primary">&#125;</span>,
-    <span class="text-primary">(error) => &#123;</span> console.log('error ', error); <span class="text-primary">&#125;</span>,
-    <span class="text-primary">() => &#123;</span> console.log('complete'); <span class="text-primary">&#125;</span>,
-  <span class="text-primary">);</span>
-&#125;
-</pre>
-
-<!-- LOOPBACK -->
-
-<h2 (click)="showLoopBack()" appHighlight>LoopBack</h2>
-<pre [hidden]="showLoopB" class="border p-3">
-Install <a href="https://loopback.io/lb3/getting-started" target="_blank">LoopBack (Node.js API Framework)</a>
-npm install -g loopback-cli
-lb
-lb model
-lb acl
-
-Install <a href="https://loopback.io/doc/en/lb2/MySQL-connector.html" target="_blank">MySQL Connector</a>
-npm install loopback-connector-mysql --save
-
-
-lb
-Quel est le nom de votre application ? api
-Entrez le nom du répertoire destiné à contenir le projet : api
-Quelle version de LoopBack voulez-vous utiliser ? 3.x (Maintenance Long Term Support)
-Quel type d'application avez-vous en tête ? notes (Projet contenant un exemple fonctionnel de base, base de données de mémoire incluse)
-cd api
-node .
-
-lb model
-Entrer le nom du modèle : contacts
-Sélectionner la source de données à laquelle associer contacts : db (memory)
-Sélectionner la classe de base du modèle : PersistedModel
-Exposer contacts via l'API REST ? Y
-Forme plurielle personnalisée (utilisée pour générer l'URL REST) :  
-Modèle commun ou serveur uniquement : common
-
-<span class="text-primary">contacts.json</span>
-&#123;
-  "properties": &#123;
-  "firstname": &#123;
-    "type": "string",
-    "required": true
-  &#125;,
-  "name": &#123;
-    "type": "string",
-    "required": true
-  &#125;,
-  "email": &#123;
-    "type": "string",
-    "required": true
-  &#125;
-&#125;
-
-
-npm install loopback-connector-mysql --save
-
-<span class="text-primary">datasources.json</span>
-&#123;
-  "my-db": &#123;
-    "host": "localhost",
-    "port": 3306,
-    "url": "",
-    "password": "",
-    "user": "root",
-    "connector": "mysql",
-    "database": "contactangularapp"
-  &#125;
-&#125;
-
-<span class="text-primary">model-config.json</span>
-&#123;
-  "contacts": &#123;
-    "dataSource": "my-db",
-    "public": true
-  &#125;
-&#125;
-
-<span class="text-primary">Create a secure REST API</span>
-lb acl
-Sélectionner le modèle auquel appliquer l'entrée ACL : contacts
-Sélectionner la portée ACL : Toutes les méthodes et propriétés
-Sélectionner le type d'accès : Ecrire
-Sélectionner le rôle : Tous les utilisateurs non authentifiés
-Sélectionner le droit à appliquer : Refuser explicitement l'accès
 </pre>
 
 <!-- HTTPINTERCEPTOR -->
@@ -390,10 +205,13 @@ import &#123; HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HTTP_INTERCE
 import &#123; Observable &#125; from 'rxjs';
 
 export class LoginInterceptor implements HttpInterceptor &#123;
-<span class="text-primary">intercept(req: HttpRequest&lt;any&gt;, next: HttpHandler): Observable&lt;HttpEvent&lt;any&gt;&gt;</span> &#123;
+<span class="text-primary">intercept(</span>
+  req: HttpRequest&lt;any&gt;,
+  next: HttpHandler
+<span class="text-primary">)</span>: Observable&lt;HttpEvent&lt;any&gt;&gt; &#123;
   const token = <span class="text-primary">localStorage</span>.getItem('token');
     if (token) &#123;
-      const cloneReq = req.<span class="text-primary">clone( &#123; params: new HttpParams().set('access_token', token) &#125; )</span>;
+      const cloneReq = req.<span class="text-primary">clone(</span> &#123; params: new HttpParams().set('access_token', token) &#125; <span class="text-primary">)</span>;
       return next.handle(cloneReq);
     &#125; else &#123;
       return next.handle(req);
@@ -415,10 +233,17 @@ export const LoginInterceptorProvider = &#123;
 import &#123; CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot &#125; from '@angular/router';
 
 export class LoginGuard implements CanActivate &#123;
-  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | import("@angular/router").UrlTree |
-  import("rxjs").Observable<boolean | import("@angular/router").UrlTree> | Promise<boolean | import("@angular/router").UrlTree> &#123;
+  <span class="text-primary">canActivate(</span>
+    route: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot
+  <span class="text-primary">)</span>: boolean |
+  import("@angular/router").UrlTree |
+  import("rxjs").Observable&lt;boolean |
+  import("@angular/router").UrlTree> |
+  Promise&lt;boolean |
+  import("@angular/router").UrlTree> &#123;
     const token=localStorage.getItem('token'); 
-    <span class="text-success">// !! -> convertit le token en un booléen</span>
+    <span class="text-success">// récupère et convertit le token en un booléen (!!)</span>
     return (!! token);
   &#125;
 &#125;
@@ -428,8 +253,15 @@ export class LoginGuard implements CanActivate &#123;
 import &#123; CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot &#125; from '@angular/router';
 
 export class LogoutGuard implements CanActivate &#123;
-canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | import("@angular/router").UrlTree |
-import("rxjs").Observable&lt;boolean | import("@angular/router").UrlTree&gt; | Promise&lt;boolean | import("@angular/router").UrlTree&gt; &#123; 
+<span class="text-primary">canActivate(</span>
+  route: ActivatedRouteSnapshot,
+  state: RouterStateSnapshot
+<span class="text-primary">)</span>: boolean |
+import("@angular/router").UrlTree |
+import("rxjs").Observable&lt;boolean |
+import("@angular/router").UrlTree&gt; |
+Promise&lt;boolean |
+import("@angular/router").UrlTree&gt; &#123; 
     const token=localStorage.getItem('token');
     if (token) &#123;
       return false; 
@@ -439,3 +271,18 @@ import("rxjs").Observable&lt;boolean | import("@angular/router").UrlTree&gt; | P
   &#125;
 &#125;
 </pre>
+
+<!-- DEPLOY -->
+
+<h2 (click)="showDeploy()" appHighlight>Deploy</h2>
+<pre [hidden]="showDeployGhPages" class="border p-3">
+Deployer sur GitHub avec gh-pages
+ng build --prod (création du dossier dist)
+npm install http-server -g
+http-server dist/myangularapp (port:8080)
+
+npm i angular-cli-ghpages --sav-dev
+ng build --prod --base-href "https://fatimabenzaoui.github.io/myAngularApp/"
+npx angular-cli-ghpages --dir=dist/myangularapp
+</pre>
+</div>

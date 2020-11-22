@@ -4,12 +4,15 @@ import { Directive, HostBinding, HostListener } from '@angular/core';
   selector: '[appHighlight]'
 })
 export class HighlightDirective {
-  @HostBinding('style.backgroundColor') bg = '#1E1E1E';
+  @HostBinding('style.backgroundColor') bg = '#000';
+  @HostBinding('style.color') color = '#555';
   constructor() { }
-  @HostListener('mouseenter') mouseenter() {
-    this.bg = '#4EC9B0';
+  @HostListener('mouseenter') mouseenter(): void {
+    this.bg = '#007BFF';
+    this.color = '#FFF';
   }
-  @HostListener('mouseleave') mouseleave() {
-    this.bg = '#1E1E1E';
+  @HostListener('mouseleave') mouseleave(): void {
+    this.bg = '#000';
+    this.color = '#555';
   }
 }

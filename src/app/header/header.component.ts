@@ -1,4 +1,3 @@
-import { AuthentificationService } from './../authentification.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,15 +6,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
+
   visibility = false;
-  constructor(
-    public authentificationService: AuthentificationService
-  ) {}
+
+  constructor() {}
+
   ngOnInit(): void {}
-  show() {
+
+  show(): void {
     this.visibility = !this.visibility;
-  }
-  logout() {
-    this.authentificationService.logout();
   }
 }
