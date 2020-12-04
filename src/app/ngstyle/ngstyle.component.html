@@ -1,0 +1,14 @@
+<div [ngStyle]="{
+    'color':colorngstyle,
+    'backgroundColor':bgngstyle,
+    'fontSize':size,
+    'width': '100px',
+    'height': '100px'}" class="mx-auto mt-5">
+  Test
+</div>
+
+
+<input [(ngModel)]="colorngstyle" type="text" class="form-control w-25 mx-auto mt-2">
+<input [(ngModel)]="bgngstyle" type="text" class="form-control w-25 mx-auto mt-2">
+<input #sizeInput (change)="changeSize(sizeInput.value)" type="number" class="form-control w-25 mx-auto mt-2">
+

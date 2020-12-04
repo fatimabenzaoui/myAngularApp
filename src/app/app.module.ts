@@ -13,6 +13,10 @@ import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { ErrorComponent } from './error/error.component';
 import { HighlightDirective } from './directive/highlight.directive';
+import { ExamplesComponent } from './examples/examples.component';
+import { EnfantComponent } from './enfant/enfant.component';
+import { NgstyleComponent } from './ngstyle/ngstyle.component';
+import { ObservableComponent } from './observable/observable.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +27,10 @@ import { HighlightDirective } from './directive/highlight.directive';
     FooterComponent,
     ErrorComponent,
     HighlightDirective,
+    ExamplesComponent,
+    EnfantComponent,
+    NgstyleComponent,
+    ObservableComponent,
   ],
   imports: [
     BrowserModule,

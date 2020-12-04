@@ -1,0 +1,46 @@
+.container-examples {
+  margin-top:75px;
+}
+
+pre {
+  color: #CCC;
+  width: 100%;
+  margin: 0 auto;
+  background-color: #252526;
+  padding: 10px;
+}
+
+.info {
+  color: #0081F0;
+}
+
+.info1 {
+  color: green;
+}
+
+.divpropertybindingbgc {
+  width: 100px;
+  height: 100px;
+  display: inline-block;
+}
+
+.divpropertybindingshow {
+  width: 100px;
+  height: 100px;
+  background-color: #485E74;
+}
+
+.classngclass {
+  background-color: #485E74;
+  width: 100px;
+  height: 100px;
+  margin: 0 auto;
+  margin-top: 10px;
+}
+
+.h3-examples,
+.h2-examples {
+  text-align: center;
+  background-color: #485E74;
+  color: #C9E6FF;
+}
