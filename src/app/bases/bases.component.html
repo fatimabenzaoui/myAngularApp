@@ -275,7 +275,7 @@ import("@angular/router").UrlTree&gt; &#123;
 
 <h2 (click)="showDeploy()" appHighlight>Deploy</h2>
 <pre [hidden]="showDeployGhPages" class="border p-3">
-Deployer sur GitHub avec gh-pages
+<strong>Deployer sur GitHub avec gh-pages</strong>
 ng build --prod (création du dossier dist)
 npm install http-server -g
 http-server dist/myangularapp (port:8080)
@@ -283,5 +283,25 @@ http-server dist/myangularapp (port:8080)
 npm i angular-cli-ghpages --sav-dev
 ng build --prod --base-href "https://fatimabenzaoui.github.io/myAngularApp/"
 npx angular-cli-ghpages --dir=dist/myangularapp
+
+<strong>Déployer sur Heroku</strong>
+// Installer express
+npm i express --save
+// Modifier package.js
+"scripts": {
+    "start": "node server.js"
+}
+// Créer un fichier server.js à la racine du projet
+const express = require('express');
+
+const app = express();
+
+app.use(express.static('./dist/myangularapp'));
+
+app.get('/*', (req, res) =>
+    res.sendFile('index.html', {root: 'dist/myangularapp/'}),
+);
+
+app.listen(process.env.PORT || 8080);
 </pre>
 </div>
